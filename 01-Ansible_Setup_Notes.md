@@ -12,40 +12,46 @@
 
 ## 🔹 Installation (Amazon Linux 2, t2.micro)
 
-| Command | Reason |
-| :--- | :--- |
-| `dnf install ansible -y` | Use Amazon Extras to install the latest supported version. |
-| `dnf install python3 python3-pip python3-devel -y` | Ansible is written in **Python**, requiring these core packages. |
-| `ansible --version` | Verify successful installation. |
+```
+dnf install ansible -y
+```
+
+```
+dnf install python3 python3-pip python3-devel -y
+```
+
+```
+ansible --version
+```
+
+```
+passwd root
+```
+### By default root login is blocked. We enable it temporarily so Master can log in.
+Open file and uncomment line 38 and 61
+```
+vi /etc/ssh/sshd_config
+```
+
+```
+systemctl restart sshd
+```
+
+```
+systemctl status sshd
+```
 
 ---
 
-## 🔹 Setup of Servers (1 Master, 1 Client)
-
-### General Setup Steps (Run on ALL Servers)
-| Command | Reason |
-| :--- | :--- |
-| `sudo -i` | Switch to the **root** user for simplified setup. |
-| `hostnamectl set-hostname ansibleMaster / ansibleClient` | Set unique hostnames for easy identification. |
-| `hostname -i` | Find the **private IP** for the Inventory file. |
-
-### Enabling Root Login (Run on both Servers )
-| Command | Reason |
-| :--- | :--- |
-| `passwd root` | Set a password (e.g., `root123`) for root access. |
-| `vi /etc/ssh/sshd_config` | Edit the SSH Daemon configuration file. |
-| **Add/Change:**<br> `PermitRootLogin yes`<br> `PasswordAuthentication yes` | Temporarily enables password-based root login, which is **required for the initial `ssh-copy-id` step**. |
-| `systemctl restart sshd` | Apply the new SSH configuration. |
-| `systemctl status sshd` | Check Status. |
-
----
 
 ## 🔹 SSH Key Authentication Setup
 
 ### On Ansible Master
 1.  **Generate Key Pair:**
-    ```bash
+    ```
     ssh-keygen               # Generates key pair (id_rsa + id_rsa.pub)
+    ```
+    ```
     ll ~/.ssh                # Confirm files are created
     ```
 2.  **Copy Public Key to Targets:**
@@ -68,6 +74,7 @@ The Inventory file defines the servers Ansible manages.
 ### Example Configuration:
 ```ini
 [Client]
+private-ip
 ```
 
 **Check inventory:**
