@@ -20,9 +20,9 @@
 
 ---
 
-## 🔹 Setup of 5 Servers (1 Master, 1 Client)
+## 🔹 Setup of Servers (1 Master, 1 Client)
 
-### General Setup Steps (Run on ALL 5 Servers)
+### General Setup Steps (Run on ALL Servers)
 | Command | Reason |
 | :--- | :--- |
 | `sudo -i` | Switch to the **root** user for simplified setup. |
