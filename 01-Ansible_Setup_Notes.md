@@ -1,6 +1,5 @@
-# 📘 Ansible Notes: Setup and Basics
+# Ansible Notes: Setup and Basics
 
-## 🔹 What is Ansible?
 * An **IT Automation Tool**.
 * A **Configuration Management Tool** used to automate:
     * Software installation
@@ -9,30 +8,24 @@
     * System management
 
 ---
+### Steps must do on Ansible Client and can be used on Ansible Master
+By default root login is blocked. We enable it temporarily so Master can log in.
 
-## 🔹 Installation (Amazon Linux 2, t2.micro)
-
-```
-dnf install ansible -y
-```
-
-```
-dnf install python3 python3-pip python3-devel -y
-```
-
-```
-ansible --version
-```
-
+**Change Password**
 ```
 passwd root
 ```
-### By default root login is blocked. We enable it temporarily so Master can log in.
-Open file and uncomment line 38 and 61
+- set password : pankaj123
+
+**Give Access**
 ```
 vi /etc/ssh/sshd_config
 ```
+### Add or make 
+- PasswordAuthentication yes
+- PermitRootLogin yes
 
+**Restart the sshd service** 
 ```
 systemctl restart sshd
 ```
@@ -40,42 +33,45 @@ systemctl restart sshd
 ```
 systemctl status sshd
 ```
+  
 
----
+### Steps to do On Ansible master : 
 
-
-## 🔹 SSH Key Authentication Setup
-
-### On Ansible Master
-1.  **Generate Key Pair:**
-    ```
-    ssh-keygen               # Generates key pair (id_rsa + id_rsa.pub)
-    ```
-    ```
-    ll ~/.ssh                # Confirm files are created
-    ```
-2.  **Copy Public Key to Targets:**
-    ```bash
-    # Run this for target servers (Amsible Client)
-    ssh-copy-id root@<prod-1-private-ip>
-    ```
-
-**Key Authentication Flow:**
-* The **Public Key** (`id_rsa.pub`) is copied to `/root/.ssh/authorized_keys` on the remote server.
-* The **Private Key** (`id_rsa`) remains securely on the Ansible Master.
-* Future logins use key authentication, eliminating the need for a password.
-
----
-
-## 🔹 Inventory File (`/etc/ansible/hosts`)
-
-The Inventory file defines the servers Ansible manages.
-
-### Example Configuration:
-```ini
-[Client]
-private-ip
+**Download Ansible** 
 ```
+dnf install ansible -y
+```
+
+**Download python**
+```
+dnf install python3 python3-pip python3-devel -y
+```
+
+**Check Version**
+```
+ansible --version
+```
+
+**Generate Key Pair**
+```
+ssh-keygen               
+```
+
+**Check keys** 
+```
+ll ~/.ssh                
+```
+
+**Copy Public Key to Targets:**
+```
+ssh-copy-id root@<private-ip>
+```
+
+**Inventory File (`/etc/ansible/hosts`)**
+```
+vi /etc/ansible/hosts
+```
+- add server using private ip
 
 **Check inventory:**
 ```
