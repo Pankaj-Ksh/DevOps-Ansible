@@ -14,8 +14,8 @@
 
 | Command | Reason |
 | :--- | :--- |
-| `amazon-linux-extras install ansible2 -y` | Use Amazon Extras to install the latest supported version. |
-| `yum install python3 python-pip python-devel -y` | Ansible is written in **Python**, requiring these core packages. |
+| `dnf install ansible -y` | Use Amazon Extras to install the latest supported version. |
+| `dnf install python3 python3-pip python3-devel -y` | Ansible is written in **Python**, requiring these core packages. |
 | `ansible --version` | Verify successful installation. |
 
 ---
