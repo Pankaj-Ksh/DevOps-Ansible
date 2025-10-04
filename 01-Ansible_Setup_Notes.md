@@ -52,6 +52,17 @@ dnf install python3 python3-pip python3-devel -y
 ansible --version
 ```
 
+**Inventory File (`/etc/ansible/hosts`)**
+```
+vi /etc/ansible/hosts
+```
+- add server using private ip
+
+**Check inventory:**
+```
+ansible-inventory --list
+```
+
 **Generate Key Pair**
 ```
 ssh-keygen               
@@ -67,16 +78,6 @@ ll ~/.ssh
 ssh-copy-id root@<private-ip>
 ```
 
-**Inventory File (`/etc/ansible/hosts`)**
-```
-vi /etc/ansible/hosts
-```
-- add server using private ip
-
-**Check inventory:**
-```
-ansible-inventory --list
-```
 
 **Test connection:**
 ```
